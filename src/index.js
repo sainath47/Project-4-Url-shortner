@@ -4,9 +4,13 @@ const bodyParser=require('body-parser')
 const app = express()
 const route = require('../src/route')
 
+app.use(bodyParser.json())
+
+
+
 mongoose.connect('mongodb+srv://functionup-uranium-cohort:q8znVj4ly0Fp0mpU@cluster0.0wdvo.mongodb.net/group9Database',
 {
-    useNewUrlParser
+    useNewUrlParser: true
 })
 .then(()=>console.log('CONNECTION ESTABLISHED'))
 .catch(error=>console.log(error.message))
