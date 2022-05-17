@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser=require('body-parser')
 const app = express()
-const route = require('../src/route')
+const route = require('../src/route/route')
 
 app.use(bodyParser.json())
 
