@@ -36,12 +36,15 @@ let baseUrl = "http://localhost:3000"
 
   const redirect = async function(req,res){
 
-  let urlCode =  req.params.urlCode
+try { let urlCode =  req.params.urlCode
+   
     let findUrl = await urlModel.findOne({urlCode})
-    if(!findUrl) return res.status(404).send({status:false,message: "not found"})
+    if(!findUrl) return res.status(404).send({status:false,message: "no document found with this url code"})
 
-    res.status(307).redirect(findUrl.longUrl)
-
+    res.status(302).redirect(findUrl.longUrl)}
+catch(err){
+  res.status(500).send({status:false,message:err.message})
+}
     
 
   }
