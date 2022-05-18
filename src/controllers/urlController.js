@@ -5,7 +5,8 @@ const validUrl = require("valid-url");
 
 
 const redis = require('redis')
-const {promisify} = require("util")
+const {promisify} = require("util");
+const { json } = require("body-parser");
 
 const redisClient = redis.createClient(
   19908,
@@ -68,8 +69,10 @@ const redirect = async function (req, res) {
     let urlCode = req.params.urlCode;
     if(!shortId.isValid(urlCode)) return res.status(400).send({ status: false, message: "not a valid URL code in params" });
 let cacheUrl = await GET_ASYNC(`${urlCode}`)
+
 if(cacheUrl){
- return res.status(302).redirect(cacheUrl.longUrl)
+  let paresedUrl=JSON.parse(cacheUrl)
+  res.status(302).redirect(paresedUrl['longUrl'])
 }
 else{
     let findUrlDB = await urlModel.findOne({ urlCode });
@@ -84,6 +87,9 @@ else{
       await SET_ASYNC(`${urlCode}`,JSON.stringify(findUrlDB))
       res.status(302).redirect(findUrlDB.longUrl);
       }
+
+
+
     
   } catch (err) {
     res.status(500).send({ status: false, message: err.message });
