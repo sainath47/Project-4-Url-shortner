@@ -12,7 +12,7 @@ mongoose.connect('mongodb+srv://functionup-uranium-cohort:q8znVj4ly0Fp0mpU@clust
 {
     useNewUrlParser: true
 })
-.then(()=>console.log('CONNECTION ESTABLISHED'))
+.then(()=>console.log('mongoDB is connected'))
 .catch(error=>console.log(error.message))
 
 app.use('/',route)

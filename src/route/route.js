@@ -6,3 +6,4 @@ router.post("/url/shorten", urlShorten);
 router.get("/:urlCode",redirect)
 
 module.exports = router
+
